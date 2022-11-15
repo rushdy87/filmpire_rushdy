@@ -1,0 +1,37 @@
+npm i @alan-ai/alan-sdk-web
+Alan is a conversational voice AI platform that lets you create an intelligent voice assistant
+for your app. It offers all necessary tools to design, embed and host your voice solutions.
+___________________________________________________________________________________________________
+npm install @mui/material
+Install Material UI, the world's most popular React UI framework.
+___________________________________________________________________________________________________
+npm install @mui/styles
+___________________________________________________________________________________________________
+npm install @mui/icons-material
+To use the font Icon component or the prebuilt SVG Material Icons (such as those found in the icon
+demos), you must first install the Material Icons font. You can do so with npm or yarn, or with the
+Google Web Fonts CDN.
+___________________________________________________________________________________________________
+npm install @reduxjs/toolkit
+The Redux Toolkit package is intended to be the standard way to write Redux logic. It was
+originally created to help address three common concerns about Redux:
+- "Configuring a Redux store is too complicated"
+- "I have to add a lot of packages to get Redux to do anything useful"
+- "Redux requires too much boilerplate code"
+___________________________________________________________________________________________________
+npm install axios
+Axios is a promise-based HTTP Client for node.js and the browser. It is isomorphic (= it can run in
+the browser and nodejs with the same codebase). On the server-side it uses the native node.js http
+module, while on the client (browser) it uses XMLHttpRequests.
+___________________________________________________________________________________________________
+npm install react-redux
+React Redux is the official React UI bindings layer for Redux. It lets your React components read
+data from a Redux store, and dispatch actions to the store to update state.
+___________________________________________________________________________________________________
+CSS Baseline
+The CssBaseline component helps to kickstart an elegant, consistent, and simple baseline to build
+upon.
+___________________________________________________________________________________________________
+react router v6 doesn't support exact anymore. As stated in their documentation: You don't need to 
+use an exact prop on <Route path="/"> anymore. This is because all paths match exactly by default.
+___________________________________________________________________________________________________
