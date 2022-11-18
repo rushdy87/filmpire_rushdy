@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
@@ -16,8 +17,10 @@ import {
   Brightness7,
 } from '@mui/icons-material';
 import { DrawerPaper, IconBtn, LinkBtn, Nav, StyledToolbar } from './styles';
+import Sidebar from '../sidebar/Sidebar';
 
 const Navbar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width: 600px)');
@@ -28,7 +31,10 @@ const Navbar = () => {
       <AppBar position="fixed">
         <StyledToolbar>
           {isMobile && (
-            <IconBtn edge="start" onClick={() => {}}>
+            <IconBtn
+              edge="start"
+              onClick={() => setMobileOpen((prevState) => !prevState)}
+            >
               <Menu />
             </IconBtn>
           )}
@@ -55,6 +61,29 @@ const Navbar = () => {
           {isMobile && 'Search...'}
         </StyledToolbar>
       </AppBar>
+      <div>
+        <Nav>
+          {isMobile ? (
+            <DrawerPaper
+              variant="temporary"
+              anchor="right"
+              open={mobileOpen}
+              onClose={() => setMobileOpen((prevState) => !prevState)}
+              ModalProps={{ keepMounted: true }}
+            >
+              <Sidebar setMobileOpen={setMobileOpen} />
+            </DrawerPaper>
+          ) : (
+            <DrawerPaper
+              variant="permanent"
+              open
+              ModalProps={{ keepMounted: true }}
+            >
+              <Sidebar setMobileOpen={setMobileOpen} />
+            </DrawerPaper>
+          )}
+        </Nav>
+      </div>
     </>
   );
 };
