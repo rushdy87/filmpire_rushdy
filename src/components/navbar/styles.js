@@ -15,9 +15,9 @@ export const IconBtn = styled(IconButton)(({ theme }) => ({
   color: 'inherit',
   outline: 'none',
   marginRight: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
-    display: 'none',
-  },
+  // [theme.breakpoints.up('sm')]: {
+  //   display: 'none',
+  // },
 }));
 
 export const Nav = styled('nav')(({ theme }) => ({

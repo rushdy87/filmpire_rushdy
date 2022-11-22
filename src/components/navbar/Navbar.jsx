@@ -17,7 +17,7 @@ import {
   Brightness7,
 } from '@mui/icons-material';
 import { DrawerPaper, IconBtn, LinkBtn, Nav, StyledToolbar } from './styles';
-import Sidebar from '../sidebar/Sidebar';
+import { Sidebar, Search } from '..';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -41,7 +41,7 @@ const Navbar = () => {
           <IconBtn sx={{ ml: 1 }} onClick={() => {}}>
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconBtn>
-          {!isMobile && 'Search...'}
+          {!isMobile && <Search />}
           <div>
             {!isAuthenticated ? (
               <Button color="inherit" onClick={() => {}}>
@@ -58,7 +58,7 @@ const Navbar = () => {
               </LinkBtn>
             )}
           </div>
-          {isMobile && 'Search...'}
+          {isMobile && <Search />}
         </StyledToolbar>
       </AppBar>
       <div>
