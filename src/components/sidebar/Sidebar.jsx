@@ -11,7 +11,9 @@ import {
   ListItemButton,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 import { useGetGenresQuery } from '../../services/TMDB';
 import { GenreImg, LinkContainer, StyledLink } from './styles';
 import genreIcons from '../../assets/genres';
@@ -25,7 +27,11 @@ const categories = [
 const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
   const { data, isFetching } = useGetGenresQuery();
+  const dispatch = useDispatch();
 
   const redLogo =
     'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
@@ -44,7 +50,13 @@ const Sidebar = ({ setMobileOpen }) => {
       <List>
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
-          <StyledLink onClick={() => {}} key={value}>
+          <StyledLink
+            onClick={() => {
+              navigate('/');
+              dispatch(selectGenreOrCategory(value));
+            }}
+            key={value}
+          >
             <ListItemButton>
               <ListItemIcon>
                 <GenreImg src={genreIcons[label.toLowerCase()]} />
@@ -63,7 +75,13 @@ const Sidebar = ({ setMobileOpen }) => {
           </Box>
         ) : (
           data.genres.map(({ id, name }) => (
-            <StyledLink onClick={() => {}} key={id}>
+            <StyledLink
+              onClick={() => {
+                navigate('/');
+                dispatch(selectGenreOrCategory(id));
+              }}
+              key={id}
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <GenreImg src={genreIcons[name.toLowerCase()]} />
