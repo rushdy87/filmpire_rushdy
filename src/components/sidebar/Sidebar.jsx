@@ -12,23 +12,20 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import { useGetGenresQuery } from '../../services/TMDB';
 import { GenreImg, LinkContainer, StyledLink } from './styles';
+import genreIcons from '../../assets/genres';
 
 const categories = [
   { label: 'Popular', value: 'popular' },
   { label: 'Top Rated', value: 'top_rated' },
   { label: 'Upcoming', value: 'upcoming' },
 ];
-const demoCategories = [
-  { label: 'Comedy', value: 'comedy' },
-  { label: 'Action', value: 'action' },
-  { label: 'Horror', value: 'horror' },
-  { label: 'Drama', value: 'drama' },
-];
 
 const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { data, isFetching } = useGetGenresQuery();
 
   const redLogo =
     'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
@@ -49,9 +46,9 @@ const Sidebar = ({ setMobileOpen }) => {
         {categories.map(({ label, value }) => (
           <StyledLink onClick={() => {}} key={value}>
             <ListItemButton>
-              {/* <ListItemIcon>
-                <GenreImg src={redLogo} />
-              </ListItemIcon> */}
+              <ListItemIcon>
+                <GenreImg src={genreIcons[label.toLowerCase()]} />
+              </ListItemIcon>
               <ListItemText primary={label} />
             </ListItemButton>
           </StyledLink>
@@ -60,16 +57,22 @@ const Sidebar = ({ setMobileOpen }) => {
       <Divider />
       <List>
         <ListSubheader>Genres</ListSubheader>
-        {demoCategories.map(({ label, value }) => (
-          <StyledLink onClick={() => {}} key={value}>
-            <ListItemButton>
-              {/* <ListItemIcon>
-                <GenreImg src={redLogo} />
-              </ListItemIcon> */}
-              <ListItemText primary={label} />
-            </ListItemButton>
-          </StyledLink>
-        ))}
+        {isFetching ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress />
+          </Box>
+        ) : (
+          data.genres.map(({ id, name }) => (
+            <StyledLink onClick={() => {}} key={id}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <GenreImg src={genreIcons[name.toLowerCase()]} />
+                </ListItemIcon>
+                <ListItemText primary={name} />
+              </ListItemButton>
+            </StyledLink>
+          ))
+        )}
       </List>
     </>
   );
