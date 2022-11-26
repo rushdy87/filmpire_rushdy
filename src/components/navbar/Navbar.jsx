@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AppBar,
   IconButton,
@@ -16,15 +17,37 @@ import {
   Brightness4,
   Brightness7,
 } from '@mui/icons-material';
-import { DrawerPaper, IconBtn, LinkBtn, Nav, StyledToolbar } from './styles';
+
 import { Sidebar, Search } from '..';
+import { fetchToken, CreateSessionId, moviesApi } from '../../utils';
+import { setUser, userSelector } from '../../features/auth';
+import { DrawerPaper, IconBtn, LinkBtn, Nav, StyledToolbar } from './styles';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector(userSelector);
+
   const isMobile = useMediaQuery('(max-width: 600px)');
-  const isAuthenticated = true;
+  const token = localStorage.getItem('filmpir_token');
+
+  useEffect(() => {
+    let sessionId = localStorage.getItem('filmpir_session_id');
+    const logInUser = async () => {
+      if (token) {
+        if (!sessionId) {
+          sessionId = await CreateSessionId(token);
+        }
+        const { data: userData } = await moviesApi.get(
+          `/account?session_id=${sessionId}`
+        );
+        dispatch(setUser(userData));
+      }
+    };
+    logInUser();
+  }, [token, dispatch]);
 
   return (
     <>
@@ -44,11 +67,14 @@ const Navbar = () => {
           {!isMobile && <Search />}
           <div>
             {!isAuthenticated ? (
-              <Button color="inherit" onClick={() => {}}>
+              <Button color="inherit" onClick={fetchToken}>
                 Login &nbsp; <AccountCircle />
               </Button>
             ) : (
-              <LinkBtn color="inherit" onClick={() => navigate(`/profile/:id`)}>
+              <LinkBtn
+                color="inherit"
+                onClick={() => navigate(`/profile/${user.id}`)}
+              >
                 {!isMobile && <>My Movies &nbsp;</>}
                 <Avatar
                   sx={{ width: 30, height: 30 }}
