@@ -14,6 +14,9 @@ const App = () => {
         <StyledToolbar />
         <Routes>
           <Route path="/" element={<Movies />} />
+          <Route path="/categories/:id" element={<Movies />} />
+          <Route path="/genre/:id" element={<Movies />} />
+          <Route path="/approved" element={<Movies />} />
           <Route path="/movie/:id" element={<MovieInformation />} />
           <Route path="/actors/:id" element={<Actors />} />
           <Route path="/profile/:id" element={<Profile />} />

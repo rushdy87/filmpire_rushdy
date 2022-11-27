@@ -1,16 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Drawer,
-  Button,
-  Avatar,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { AppBar, Button, Avatar, useMediaQuery, useTheme } from '@mui/material';
 import {
   Menu,
   AccountCircle,
@@ -24,13 +15,13 @@ import { setUser, userSelector } from '../../features/auth';
 import { DrawerPaper, IconBtn, LinkBtn, Nav, StyledToolbar } from './styles';
 
 const Navbar = () => {
+  const { isAuthenticated, user } = useSelector(userSelector);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 600px)');
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector(userSelector);
 
-  const isMobile = useMediaQuery('(max-width: 600px)');
   const token = localStorage.getItem('filmpir_token');
 
   useEffect(() => {
