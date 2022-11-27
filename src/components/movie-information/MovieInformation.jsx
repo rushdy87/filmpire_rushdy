@@ -10,7 +10,6 @@ import {
   Grid,
   Rating,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 import {
   Movie as MovieIcon,
@@ -23,8 +22,12 @@ import {
   ArrowBack,
 } from '@mui/icons-material';
 
+import { MovieList } from '..';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
-import { useGetMovieQuery } from '../../services/TMDB';
+import {
+  useGetMovieQuery,
+  useGetRecommendationsQuery,
+} from '../../services/TMDB';
 import {
   BtnsContainer,
   CastImg,
@@ -43,6 +46,10 @@ const MovieInformation = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
+  const { data: recommendations } = useGetRecommendationsQuery({
+    id,
+    list: '/recommendations',
+  });
 
   const isMovieFavorited = false;
   const isMovieWatchlisted = false;
@@ -220,6 +227,17 @@ const MovieInformation = () => {
           </BtnsContainer>
         </Grid>
       </Grid>
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" gutterBottom align="center">
+          You might also like
+        </Typography>
+        {/* Loop through recomaned movies */}
+        {recommendations ? (
+          <MovieList movies={recommendations} limit={12} />
+        ) : (
+          <Box>Sorry, nothing was found.</Box>
+        )}
+      </Box>
     </ContainerSpaceAround>
   );
 };
