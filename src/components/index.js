@@ -7,3 +7,4 @@ export { default as Profile } from './profile/Profile';
 export { default as MovieList } from './movie-list/MovieList';
 export { default as Movie } from './movie/Movie';
 export { default as Search } from './search/Search';
+export { default as Pagination } from './pagination/Pagination';
