@@ -8,3 +8,4 @@ export { default as MovieList } from './movie-list/MovieList';
 export { default as Movie } from './movie/Movie';
 export { default as Search } from './search/Search';
 export { default as Pagination } from './pagination/Pagination';
+export { default as RatedCards } from './rated-cards/RatedCards';
