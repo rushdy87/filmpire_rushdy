@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Button, Avatar, useMediaQuery, useTheme } from '@mui/material';
@@ -13,6 +13,7 @@ import { Sidebar, Search } from '..';
 import { fetchToken, CreateSessionId, moviesApi } from '../../utils';
 import { setUser, userSelector } from '../../features/auth';
 import { DrawerPaper, IconBtn, LinkBtn, Nav, StyledToolbar } from './styles';
+import { ColorModeContext } from '../../utils/ToggleColorMode';
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector(userSelector);
@@ -21,6 +22,8 @@ const Navbar = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const colorMode = useContext(ColorModeContext);
 
   const token = localStorage.getItem('filmpir_token');
 
@@ -52,7 +55,7 @@ const Navbar = () => {
               <Menu />
             </IconBtn>
           )}
-          <IconBtn sx={{ ml: 1 }} onClick={() => {}}>
+          <IconBtn sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconBtn>
           {!isMobile && <Search />}
